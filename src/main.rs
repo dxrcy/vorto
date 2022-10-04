@@ -7,7 +7,8 @@ fn main() -> ! {
   ctrlc::set_handler(|| {
     println!("\nĜis!");
     std::process::exit(0);
-  }).expect("Could not set CTRLC handler");
+  })
+  .expect("Could not set CTRLC handler");
 
   // Include text files in binary
   let answers = include_str!("answers.txt").lines().collect::<Vec<&str>>();
@@ -63,7 +64,7 @@ fn main() -> ! {
             "Boneta",
             "Ne malbona...",
           ]
-          .last()
+          .get(grid.len() - 1)
           .unwrap_or(&"Kio?")
         );
         continue; // Skip rest of guess loop
