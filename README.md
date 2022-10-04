@@ -2,7 +2,7 @@
 
 A wordle clone, in Esperanto, for the terminal, made in Rust.
 
-[Latest release](https://github.com/darccyy/vorto/releases/tag/v1.0)
+[Releases](https://github.com/darccyy/vorto/releases/)
 
 ## Coming soon?
 
