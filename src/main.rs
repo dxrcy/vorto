@@ -106,7 +106,7 @@ fn main() -> ! {
       }
 
       // Guess must be 5 letters
-      if guess.len() != 5 {
+      if guess.chars().count() != 5 {
         warning = "Devas esti 5 literoj".to_string();
         continue; // Skip rest of guess loop
       }
