@@ -104,12 +104,17 @@ fn main() -> ! {
 
           // Reasonable guess (think)
           "pensu" => {
-            let valids = vorto::smart_guess(&grid, answer, &answers);
-            if valids.len() > 0 {
-              grid.push(vorto::random_item(&valids).to_string());
-              warning = format!("Eblaj vortoj: {}", valids.len());
+            if grid.len() < 1 {
+              grid.push("salto".to_string());
+              warning = "Boneta diveno".to_string();
             } else {
-              warning = "Ne povas trovi la solvon!".to_string();
+              let valids = vorto::smart_guess(&grid, answer, &answers);
+              if valids.len() > 0 {
+                grid.push(vorto::random_item(&valids).to_string());
+                warning = format!("Eblaj vortoj: {}", valids.len());
+              } else {
+                warning = "Ne povas trovi la solvon!".to_string();
+              }
             }
           }
 

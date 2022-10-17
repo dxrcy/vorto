@@ -97,14 +97,14 @@ pub fn smart_guess<'a>(grid: &Grid, answer: &str, answers: &Vec<&'a str>) -> Vec
           .nth(i)
           .expect("Row and guess should be same length");
 
-        // If char is green
+        // Green
         if answer_ch == row_ch {
           // Green must be same character
           if guess_ch != row_ch {
             continue 'Guess;
           }
         }
-        // If char is yellow
+        // Yellow
         else if answer.contains(row_ch) {
           // Yellow must not be same character
           if guess_ch == row_ch {
@@ -112,6 +112,13 @@ pub fn smart_guess<'a>(grid: &Grid, answer: &str, answers: &Vec<&'a str>) -> Vec
           }
           // Yellow must be in word
           if !guess.contains(row_ch) {
+            continue 'Guess;
+          }
+        }
+        // White
+        else {
+          // White must not be same character
+          if guess_ch == row_ch {
             continue 'Guess;
           }
         }
