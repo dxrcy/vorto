@@ -1,4 +1,5 @@
-pub type Grid = Vec<String>;
+pub type GridLine = String;
+pub type Grid = Vec<GridLine>;
 
 /// Game state
 pub enum State {
@@ -20,7 +21,7 @@ pub fn random_item<'a, T>(vec: &'a Vec<T>) -> &'a T {
 pub fn get_lines(grid: &mut Grid, answer: &str) -> Vec<String> {
   let mut print: Vec<String> = vec![];
 
-  //? Move inside loop ? Might not affect performance
+  //? Move inside loop ? Might not affect performance - Also change `get_greens`
   let answer_vec = answer.chars().collect::<Vec<char>>();
 
   for line in grid {
@@ -64,4 +65,62 @@ pub fn input(prompt: &str) -> Result<String, std::io::Error> {
   }
 
   Ok(s)
+}
+
+/// Remove first character of string
+pub fn remove_first(s: &str) -> &str {
+  let mut chars = s.chars();
+  chars.next();
+  chars.as_str()
+}
+
+/// Algorithm to get valid guesses based on grid state
+/// Returns list of all valid words, from list of total answers
+pub fn smart_guess<'a>(grid: &Grid, answer: &str, answers: &Vec<&'a str>) -> Vec<&'a str> {
+  let mut valids = Vec::<&str>::new();
+
+  'Guess: for &guess in answers {
+    for row in grid {
+      // Guess must not be in grid already
+      if guess == row {
+        continue 'Guess;
+      }
+
+      // Loop characters
+      for (i, row_ch) in row.chars().enumerate() {
+        let answer_ch = answer
+          .chars()
+          .nth(i)
+          .expect("Row and answer should be same length");
+        let guess_ch = guess
+          .chars()
+          .nth(i)
+          .expect("Row and guess should be same length");
+
+        // If char is green
+        if answer_ch == row_ch {
+          // Green must be same character
+          if guess_ch != row_ch {
+            continue 'Guess;
+          }
+        }
+        // If char is yellow
+        else if answer.contains(row_ch) {
+          // Yellow must not be same character
+          if guess_ch == row_ch {
+            continue 'Guess;
+          }
+          // Yellow must be in word
+          if !guess.contains(row_ch) {
+            continue 'Guess;
+          }
+        }
+      }
+    }
+
+    // Add to valid guesses
+    valids.push(guess);
+  }
+
+  valids
 }

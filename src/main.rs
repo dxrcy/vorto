@@ -1,7 +1,6 @@
 use vorto::{Grid, State::*};
 
 //TODO Add timing ¿ how ?
-//TODO Move string literal warnings to const's
 fn main() -> ! {
   // Handle CTRLC exit
   ctrlc::set_handler(|| {
@@ -24,7 +23,9 @@ fn main() -> ! {
     // Guess
     loop {
       // Title
-      print!("\x1bc\x1b[36;3m┌VORTO┐\x1b[0m");
+      // print!("\x1bc\x1b[36;3m┌VORTO┐\x1b[0m");
+      // ! Debug title
+      print!("\x1b[36;3m┌VORTO┐\x1b[0m [{answer}] ");
 
       // Warning
       if warning.len() > 0 {
@@ -78,28 +79,54 @@ fn main() -> ! {
       }
 
       // Make guess
-      let guess = vorto::input("\x1b[36m└\x1b[0m").expect("Could not read standard input");
+      let guess = vorto::input("\x1b[36m└\x1b[0m")
+        .expect("Could not read standard input")
+        .to_lowercase();
 
       // Command starts with '/'
       if guess.starts_with('/') {
-        match guess.chars().nth(1).unwrap_or(' ') {
-          // New game '/x'
-          'x' => {
+        match vorto::remove_first(&guess) {
+          // New game (restart)
+          "eliru" => {
             warning = format!("Estis: \x1b[3m'{}'", answer);
             break; // Break guess loop, start new game
           }
-          // Give answer '/!'
-          '!' => {
+
+          // Give answer (cheat)
+          "trompu" => {
             warning = format!("\x1b[31mEstas: \x1b[3m'{}'", answer);
           }
-          // Random word '/?'
-          '?' => {
+
+          // Random word (guess)
+          "divenu" => {
             grid.push(vorto::random_item(&answers).to_string());
             warning = "Hazarda tre".to_string();
           }
+
+          // Reasonable guess (think)
+          "pensu" => {
+            let valids = vorto::smart_guess(&grid, answer, &answers);
+            if valids.len() > 0 {
+              grid.push(vorto::random_item(&valids).to_string());
+              warning = format!("Eblaj vortoj: {}", valids.len());
+            } else {
+              warning = "Ne povas trovi la solvon!".to_string();
+            }
+          }
+
+          // Remove last guess (fix)
+          "riparu" => {
+            if grid.len() > 0 {
+              grid.pop().expect("Could not remove last item of grid");
+              warning = "Uŭps!".to_string();
+            } else {
+              warning = "Ne povas ripari".to_string();
+            }
+          }
+
           // Unknown command
           _ => {
-            warning = "Ne estas ordono".to_string();
+            warning = "Nekonata ordono".to_string();
           }
         }
 
