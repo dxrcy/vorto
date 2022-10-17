@@ -23,9 +23,8 @@ fn main() -> ! {
     // Guess
     loop {
       // Title
-      // print!("\x1bc\x1b[36;3m┌VORTO┐\x1b[0m");
-      // ! Debug title
-      print!("\x1b[36;3m┌VORTO┐\x1b[0m [{answer}] ");
+      print!("\x1bc\x1b[36;3m┌VORTO┐\x1b[0m");
+      // print!("\x1b[36;3m┌VORTO┐\x1b[0m [{answer}] "); // Debug title
 
       // Warning
       if warning.len() > 0 {
