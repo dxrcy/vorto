@@ -117,8 +117,8 @@ pub fn smart_guess<'a>(grid: &Grid, answer: &str, answers: &Vec<&'a str>) -> Vec
         }
         // White
         else {
-          // White must not be same character
-          if guess_ch == row_ch {
+          // White must not be in word
+          if guess.contains(row_ch) {
             continue 'Guess;
           }
         }
