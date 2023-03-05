@@ -96,11 +96,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "stilo"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7212f05fe1d2aa60a0646c63b89f21ce08e1715540c9c719f0ed0988e3aa86e0"
+
+[[package]]
 name = "vorto"
 version = "1.2.0"
 dependencies = [
  "ctrlc",
  "rand",
+ "stilo",
 ]
 
 [[package]]

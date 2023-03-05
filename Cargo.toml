@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 ctrlc = "3.2.3"
 rand = "0.8.5"
+stilo = "0.3.1"
