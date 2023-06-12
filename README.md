@@ -1,16 +1,16 @@
 # Vorto
 
-A wordle clone, in Esperanto, for the terminal, made in Rust.
+A Wordle clone, in Esperanto, for the terminal, made in Rust.
 
 [Releases](https://github.com/darccyy/vorto/releases/)
 
 # How to use
 
-[[coming soon]]
+Same as Wordle.
 
 ## Commands
 
-[[coming soon]]
+Type `/helpu` for command list.
 
 # Coming soon?
 
