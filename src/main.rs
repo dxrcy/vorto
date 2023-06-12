@@ -98,6 +98,18 @@ fn main() -> ! {
             // Command starts with '/'
             if guess.starts_with('/') {
                 match vorto::remove_first(&guess) {
+                    // Commands help
+                    "helpu" => {
+                        warning = stylize_many!(
+                            "Eblaj ordonoj: ";
+                            "eliru":  Yellow+bold; ", ": Yellow;
+                            "trompu": Yellow+bold; ", ": Yellow;
+                            "divenu": Yellow+bold; ", ": Yellow;
+                            "pensu":  Yellow+bold; ", ": Yellow;
+                            "riparu": Yellow+bold;
+                        );
+                    }
+
                     // New game (restart)
                     "eliru" => {
                         warning = stylize_many!(
