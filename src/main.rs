@@ -149,6 +149,30 @@ fn main() -> ! {
                         }
                     }
 
+                    // Show valid guesses
+                    "sciigu" => {
+                        if grid.len() < 1 {
+                            warning = "Ne eblas scii!".to_string();
+                        } else {
+                            let valids = vorto::smart_guess(&grid, answer, &answers);
+                            if valids.len() > 0 {
+                                warning = "Eblaj vortoj: ".to_string();
+                                for (i, valid) in valids.into_iter().enumerate() {
+                                    if i > 0 {
+                                        warning += &stylize!(", ":  Yellow);
+                                    }
+                                    warning += &stylize!("{}":  Yellow+bold, valid);
+                                    if i >= 5 {
+                                        warning += &stylize!("...":  Yellow);
+                                        break;
+                                    }
+                                }
+                            } else {
+                                warning = "Ne povas trovi la solvon!".to_string();
+                            }
+                        }
+                    }
+
                     // Remove last guess (fix)
                     "riparu" => {
                         if grid.len() > 0 {
